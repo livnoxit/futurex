@@ -210,9 +210,7 @@ export function RegisterModal({
                   <span className="font-semibold text-cyan-300">
                     Important:
                   </span>{" "}
-                  A registration fee of <strong>₹100</strong> is required to
-                  confirm your seat. After submitting this form, our team will
-                  contact you with the payment details.
+                  After submitting this form, our team will contact you.
                 </p>
               </div>
 

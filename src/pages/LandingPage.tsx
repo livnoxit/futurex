@@ -36,7 +36,7 @@ const speakers = [
   },
   {
     name: "Rashifa Thasneem",
-    role: "Growth Strategist",
+    role: "Project manager at inspler ecommerce and content creator",
     image: "/rashifa.jpeg",
   },
 ];
