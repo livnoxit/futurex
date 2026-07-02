@@ -49,9 +49,14 @@ body {
     linear-gradient(135deg, #030711 0%, #060a14 40%, #090d1a 100%);
 }
 
-img {
+img,
+video {
   display: block;
   max-width: 100%;
+}
+
+video {
+  object-fit: cover;
 }
 
 ::selection {
