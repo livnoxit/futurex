@@ -39,6 +39,11 @@ const speakers = [
     role: "Project manager at inspler ecommerce and content creator",
     image: "/rashifa.jpeg",
   },
+  {
+    name:"Suhail Abdulatif",
+    role:"Co-founder of Ailution",
+    image:"/Kochu.jpeg"
+  }
 ];
 
 export function LandingPage() {
@@ -109,7 +114,7 @@ export function LandingPage() {
         <div className="absolute left-1/2 top-1/2 h-175 w-175 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/20 blur-[180px]" />
 
         {/* Background Text */}
-        <h1 className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black uppercase tracking-[0.2em] text-white/3">
+        <h1 className="gilroy-heading pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black uppercase tracking-[0.2em] text-white/3">
           FUTUREX
         </h1>
 
@@ -238,7 +243,7 @@ export function LandingPage() {
 
         <section className="space-y-8 py-12" id="about">
           <div className="space-y-3">
-            <p className="text-5xl font-semibold uppercase  text-cyan-300">
+            <p className="gilroy-heading text-5xl   text-cyan-300">
               FutureX: The Creative Digital Summit
             </p>
             {/* <h3 className="text-3xl font-bold text-white">
@@ -271,7 +276,7 @@ export function LandingPage() {
               FEATURED SPEAKERS
             </p>
 
-            <h2 className="max-w-2xl text-5xl font-black leading-tight text-white md:text-6xl">
+            <h2 className="gilroy-heading max-w-2xl text-5xl font-black  leading-tight text-white md:text-6xl">
               Voices
               <br />
               Building Tomorrow.
@@ -305,7 +310,7 @@ export function LandingPage() {
                     {speaker.name}
                   </h3>
 
-                  <p className="mt-2 text-sm uppercase tracking-[0.2em] text-cyan-300">
+                  <p className="mt-2 text-sm  tracking-[0.2em] text-cyan-300">
                     {speaker.role}
                   </p>
                 </div>
@@ -326,7 +331,7 @@ export function LandingPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
               Highlights
             </p>
-            <h3 className="text-3xl font-bold text-white">
+            <h3 className="text-3xl gilroy-heading font-bold text-white">
               Everything that matters for your next leap.
             </h3>
           </div>
@@ -373,7 +378,7 @@ export function LandingPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
               Venue
             </p>
-            <h3 className="text-3xl font-bold text-white">
+            <h3 className="text-3xl gilroy-heading font-bold text-white">
               Rydges Inn, Kottakkal
             </h3>
           </div>
@@ -395,7 +400,7 @@ export function LandingPage() {
             <p className="text-sm font-semibold uppercase tracking-[0.22em] text-cyan-300">
               Why Attend
             </p>
-            <h3 className="text-3xl font-bold text-white">
+            <h3 className="text-3xl gilroy-heading font-bold text-white">
               Learn, connect, launch.
             </h3>
           </div>
