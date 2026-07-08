@@ -58,3 +58,45 @@ img {
   color: #02040d;
   background: #7ee7ff;
 }
+
+[data-sonner-toaster][data-x-position="center"] {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mobile-friendly-toast {
+  width: min(100vw - 2rem, 24rem);
+  max-width: min(100vw - 2rem, 24rem);
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.mobile-friendly-toast__title {
+  line-height: 1.35;
+}
+
+.mobile-friendly-toast__description {
+  line-height: 1.45;
+  white-space: normal;
+}
+
+@media (max-width: 640px) {
+  [data-sonner-toaster] {
+    width: calc(100vw - 2rem);
+    --width: calc(100vw - 2rem);
+  }
+
+  .mobile-friendly-toast {
+    width: 100%;
+    max-width: 100%;
+    padding: 0.875rem 1rem;
+  }
+
+  .mobile-friendly-toast__title {
+    font-size: 0.9375rem;
+  }
+
+  .mobile-friendly-toast__description {
+    font-size: 0.8125rem;
+  }
+}

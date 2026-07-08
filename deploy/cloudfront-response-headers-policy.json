@@ -1,0 +1,24 @@
+{
+  "Comment": "Attach to CloudFront behaviors for / and /index.html. Disable caching (MinTTL=0) on those behaviors.",
+  "Name": "futurex-no-cache-index-html",
+  "CustomHeadersConfig": {
+    "Quantity": 3,
+    "Items": [
+      {
+        "Header": "Cache-Control",
+        "Value": "no-cache, no-store, must-revalidate",
+        "Override": true
+      },
+      {
+        "Header": "Pragma",
+        "Value": "no-cache",
+        "Override": true
+      },
+      {
+        "Header": "Expires",
+        "Value": "0",
+        "Override": true
+      }
+    ]
+  }
+}

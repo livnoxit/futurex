@@ -1,24 +1,41 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
-import { useForm, type Resolver } from "react-hook-form";
+import {
+  Calendar,
+  GraduationCap,
+  Mail,
+  MapPin,
+  Phone,
+  User,
+  X,
+  type LucideIcon,
+} from "lucide-react";import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
-// import axios from "axios";
+import {
+  submitRegistrationForm,
+  type RegistrationFormValues,
+} from "../api/registration";
 
 const schema = z.object({
-  name: z.string().min(2, "Please enter your full name"),
-  place: z.string().min(2, "Please enter your place"),
-  email: z.string().email("Please enter a valid email address"),
+  full_name: z.string().trim().min(2, "Please enter your full name"),
+  place: z
+    .string()
+    .trim()
+    .refine((val) => val.length === 0 || val.length >= 2, "Please enter a valid place"),
+  email: z.union([
+    z.literal(""),
+    z.string().trim().email("Please enter a valid email address"),
+  ]),
   age: z.preprocess(
-    (val) => (val === "" ? undefined : Number(val)),
+    (val) => (val === "" || val === undefined || val === null ? undefined : Number(val)),
     z
-      .number()
+      .number({ error: "Please enter a valid age" })
       .min(1, "Please enter a valid age")
       .max(120, "Please enter a valid age")
       .optional(),
   ),
-  qualification: z.string().min(2, "Please enter your qualification"),
+  qualification: z.string().trim(),
   phone: z
     .string()
     .regex(/^[0-9]{10}$/, "Please enter a valid 10-digit phone number"),
@@ -26,20 +43,33 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
+function FormFieldLabel({
+  icon: Icon,
+  required = false,
+  children,
+}: {
+  icon: LucideIcon;
+  required?: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <span className="inline-flex items-center gap-2 font-medium text-white">
+      <Icon className="size-4 shrink-0 text-cyan-400" strokeWidth={2} aria-hidden="true" />
+      {children}
+      {required ? (
+        <span className="text-rose-400" aria-hidden="true">
+          *
+        </span>
+      ) : null}
+    </span>
+  );
+}
+
 interface RegisterModalProps {
   open: boolean;
   onClose: () => void;
-  onSubmitSuccess?: (values: FormValues) => void;
+  onSubmitSuccess?: (values: RegistrationFormValues) => void;
 }
-
-// function toBase64(file: File) {
-//   return new Promise<string>((resolve, reject) => {
-//     const reader = new FileReader();
-//     reader.readAsDataURL(file);
-//     reader.onload = () => resolve(reader.result as string);
-//     reader.onerror = (error) => reject(error);
-//   });
-// }
 
 export function RegisterModal({
   open,
@@ -61,16 +91,23 @@ export function RegisterModal({
 
   const onSubmit = async (values: FormValues) => {
     try {
-      // form submission
-      // await axios.post("https://futurex-''''''/register", values);
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-      console.log("Form submitted successfully:", values);
+      await submitRegistrationForm(values);
+      toast.success("Registration confirmed", {
+        description:
+          "Thank you for registering for FutureX. Our team will contact you shortly.",
+        duration: 5000,
+      });
       handleClose();
       onSubmitSuccess?.(values);
-      onClose();
-      toast.success("Form submitted successfully!");
     } catch (error) {
-      console.error("Error submitting form:", error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again.";
+      toast.error("Unable to register", {
+        description: message,
+        duration: 6000,
+      });
     }
   };
 
@@ -124,21 +161,26 @@ export function RegisterModal({
             <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
               <div className="grid gap-4 md:grid-cols-2">
                 <label className="grid gap-2 text-sm text-slate-100">
-                  Full Name
+                  <FormFieldLabel icon={User} required>
+                    Full Name
+                  </FormFieldLabel>
                   <input
-                    {...register("name")}
+                    id="full_name"
+                    {...register("full_name")}
                     placeholder="John Doe"
+                    aria-required="true"
                     className="rounded-3xl border border-white/10 bg-slate-950/90 px-4 py-3 text-base text-white outline-none transition focus:border-cyan-300/70 focus:ring-2 focus:ring-cyan-300/20"
                   />
-                  {errors.name ? (
+                  {errors.full_name ? (
                     <span className="text-xs text-rose-400">
-                      {errors.name.message}
+                      {errors.full_name.message}
                     </span>
                   ) : null}
                 </label>
                 <label className="grid gap-2 text-sm text-slate-100">
-                  Place
+                  <FormFieldLabel icon={MapPin}>Place</FormFieldLabel>
                   <input
+                    id="place"
                     {...register("place")}
                     placeholder="City"
                     className="rounded-3xl border border-white/10 bg-slate-950/90 px-4 py-3 text-base text-white outline-none transition focus:border-cyan-300/70 focus:ring-2 focus:ring-cyan-300/20"
@@ -150,8 +192,9 @@ export function RegisterModal({
                   ) : null}
                 </label>
                 <label className="grid gap-2 text-sm text-slate-100">
-                  Email
+                  <FormFieldLabel icon={Mail}>Email</FormFieldLabel>
                   <input
+                    id="email"
                     type="email"
                     {...register("email")}
                     placeholder="you@example.com"
@@ -164,11 +207,12 @@ export function RegisterModal({
                   ) : null}
                 </label>
                 <label className="grid gap-2 text-sm text-slate-100">
-                  Age
+                  <FormFieldLabel icon={Calendar}>Age</FormFieldLabel>
                   <input
+                    id="age"
                     type="number"
                     {...register("age")}
-                    placeholder="age"
+                    placeholder="Age"
                     className="rounded-3xl border border-white/10 bg-slate-950/90 px-4 py-3 text-base  text-white outline-none transition focus:border-cyan-300/70 focus:ring-2 focus:ring-cyan-300/20"
                   />
                   {errors.age ? (
@@ -178,8 +222,9 @@ export function RegisterModal({
                   ) : null}
                 </label>
                 <label className="grid gap-2 text-sm text-slate-100">
-                  Qualification
+                  <FormFieldLabel icon={GraduationCap}>Qualification</FormFieldLabel>
                   <input
+                    id="qualification"
                     {...register("qualification")}
                     placeholder="Qualification"
                     className="rounded-3xl border border-white/10 bg-slate-950/90 px-4 py-3 text-base text-white outline-none transition focus:border-cyan-300/70 focus:ring-2 focus:ring-cyan-300/20"
@@ -191,11 +236,15 @@ export function RegisterModal({
                   ) : null}
                 </label>
                 <label className="grid gap-2 text-sm text-slate-100">
-                  Phone
+                  <FormFieldLabel icon={Phone} required>
+                    Phone
+                  </FormFieldLabel>
                   <input
+                    id="phone"
                     {...register("phone")}
                     type="tel"
                     placeholder="99999 99999"
+                    aria-required="true"
                     className="rounded-3xl border border-white/10 bg-slate-950/90 px-4 py-3 text-base text-white outline-none transition focus:border-cyan-300/70 focus:ring-2 focus:ring-cyan-300/20"
                   />
                   {errors.phone ? (
@@ -210,11 +259,11 @@ export function RegisterModal({
                   <span className="font-semibold text-cyan-300">
                     Important:
                   </span>{" "}
-                  After submitting this form, our team will contact you.
+                  After submitting this registration form, our team will contact you to confirm your participation. A registration fee of ₹100 is applicable, and your seat will be confirmed only upon successful payment. Lunch and refreshments will be provided for all registered participants. (Terms & Conditions Apply)
                 </p>
               </div>
 
-              <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+              <div className="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
                 <button
                   type="button"
                   className="inline-flex items-center justify-center rounded-full border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
