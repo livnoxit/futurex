@@ -2,13 +2,15 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Calendar,
   GraduationCap,
+  Briefcase,
   Mail,
   MapPin,
   Phone,
   User,
   X,
   type LucideIcon,
-} from "lucide-react";import { useForm, type Resolver } from "react-hook-form";
+} from "lucide-react";
+import { useForm, type Resolver } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "sonner";
@@ -19,23 +21,33 @@ import {
 
 const schema = z.object({
   full_name: z.string().trim().min(2, "Please enter your full name"),
-  place: z
-    .string()
-    .trim()
-    .refine((val) => val.length === 0 || val.length >= 2, "Please enter a valid place"),
-  email: z.union([
-    z.literal(""),
-    z.string().trim().email("Please enter a valid email address"),
-  ]),
+
+  place: z.string().trim().optional(),
+
+  email: z
+    .union([
+      z.literal(""),
+      z.string().trim().email("Please enter a valid email address"),
+    ])
+    .optional(),
+
+  occupation: z.enum(["Student", "Professional", "Non Working"], {
+    error: "Please select your occupation",
+  }),
+
   age: z.preprocess(
-    (val) => (val === "" || val === undefined || val === null ? undefined : Number(val)),
+    (val) =>
+      val === "" || val === undefined || val === null
+        ? undefined
+        : Number(val),
     z
       .number({ error: "Please enter a valid age" })
       .min(1, "Please enter a valid age")
       .max(120, "Please enter a valid age")
-      .optional(),
   ),
-  qualification: z.string().trim(),
+
+  qualification: z.string().trim().optional(),
+
   phone: z
     .string()
     .regex(/^[0-9]{10}$/, "Please enter a valid 10-digit phone number"),
@@ -54,7 +66,11 @@ function FormFieldLabel({
 }) {
   return (
     <span className="inline-flex items-center gap-2 font-medium text-white">
-      <Icon className="size-4 shrink-0 text-cyan-400" strokeWidth={2} aria-hidden="true" />
+      <Icon
+        className="size-4 shrink-0 text-cyan-400"
+        strokeWidth={2}
+        aria-hidden="true"
+      />
       {children}
       {required ? (
         <span className="text-rose-400" aria-hidden="true">
@@ -207,7 +223,32 @@ export function RegisterModal({
                   ) : null}
                 </label>
                 <label className="grid gap-2 text-sm text-slate-100">
-                  <FormFieldLabel icon={Calendar}>Age</FormFieldLabel>
+                  <FormFieldLabel icon={Briefcase} required>
+                    Occupation
+                  </FormFieldLabel>
+
+                  <select
+                    id="occupation"
+                    {...register("occupation")}
+                    className="rounded-3xl border border-white/10 bg-slate-950/90 px-4 py-3 text-base text-white outline-none transition focus:border-cyan-300/70 focus:ring-2 focus:ring-cyan-300/20"
+                    defaultValue=""
+                  >
+                    <option value="" disabled className="text-black">
+                      Select your occupation
+                    </option>
+                    <option value="Student">Student</option>
+                    <option value="Professional">Professional</option>
+                    <option value="Non Working">Non-Working</option>
+                  </select>
+
+                  {errors.occupation ? (
+                    <span className="text-xs text-rose-400">
+                      {errors.occupation.message}
+                    </span>
+                  ) : null}
+                </label>
+                <label className="grid gap-2 text-sm text-slate-100">
+                  <FormFieldLabel icon={Calendar} required>Age</FormFieldLabel>
                   <input
                     id="age"
                     type="number"
@@ -222,7 +263,9 @@ export function RegisterModal({
                   ) : null}
                 </label>
                 <label className="grid gap-2 text-sm text-slate-100">
-                  <FormFieldLabel icon={GraduationCap}>Qualification</FormFieldLabel>
+                  <FormFieldLabel icon={GraduationCap}>
+                    Qualification
+                  </FormFieldLabel>
                   <input
                     id="qualification"
                     {...register("qualification")}
@@ -259,7 +302,11 @@ export function RegisterModal({
                   <span className="font-semibold text-cyan-300">
                     Important:
                   </span>{" "}
-                  After submitting this registration form, our team will contact you to confirm your participation. A registration fee of ₹100 is applicable, and your seat will be confirmed only upon successful payment. Lunch and refreshments will be provided for all registered participants. (Terms & Conditions Apply)
+                  After submitting this registration form, our team will contact
+                  you to confirm your participation. A registration fee is
+                  applicable, and your seat will be confirmed only upon
+                  successful payment. Lunch and refreshments will be provided
+                  for all registered participants. (Terms & Conditions Apply)
                 </p>
               </div>
 

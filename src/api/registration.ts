@@ -19,6 +19,7 @@ export type RegistrationFormValues = {
   full_name: string;
   place?: string;
   email?: string;
+  occupation?:String;
   age?: number;
   qualification?: string;
   phone: string;
