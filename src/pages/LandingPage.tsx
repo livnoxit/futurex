@@ -121,10 +121,10 @@ export function LandingPage() {
         {/* Content */}
         <div className="relative z-10 flex flex-col items-center text-center">
           {/* Caption */}
-          <div className="mb-8 flex items-center gap-3 rounded-full border border-cyan-400/20 bg-white/5 px-6 py-2 backdrop-blur-xl">
+          <div className="mb-8 mt-6 flex items-center gap-3 rounded-full border border-cyan-400/20 bg-white/5 px-6 py-2 backdrop-blur-xl">
             <div className="h-2 w-2 animate-pulse rounded-full bg-cyan-400" />
             <span className="text-xs font-medium uppercase tracking-[0.35em] text-cyan-300">
-              THE CREATIVE DIGITAL SUMMIT • 2026
+              AI CREATIVE DIGITAL SUMMIT • 2026
             </span>
           </div>
 
