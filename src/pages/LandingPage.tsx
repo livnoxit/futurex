@@ -4,6 +4,7 @@ import {
   Compass,
   MapPin,
   MessageCircleMore,
+  Phone,
   Users,
 } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -189,8 +190,17 @@ export function LandingPage() {
 
             <div className="absolute inset-0 -translate-x-full bg-white/20 transition duration-700 group-hover:translate-x-full" />
           </button>
+          <p className="mt-6 text-sm text-slate-300"> Contact for more information:</p>
+
+          <a
+            href="tel:+919633332476"
+            className="mt-2 inline-flex items-center gap-2 text-cyan-300 font-semibold hover:text-cyan-200"
+          >
+            <Phone size={18} />
+            +91 9633332476
+          </a>
           <div className="pt-10">
-            <div className="flex h-14 w-8 justify-center rounded-full border border-white/20">
+            <div className="flex h-12 w-7 justify-center rounded-full border border-white/20">
               <div className="mt-2 h-2 w-2 animate-bounce rounded-full bg-cyan-300 shadow-[0_0_15px_#22d3ee]" />
             </div>
           </div>
