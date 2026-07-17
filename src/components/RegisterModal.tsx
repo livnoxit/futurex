@@ -303,9 +303,7 @@ export function RegisterModal({
                     Important:
                   </span>{" "}
                   After submitting this registration form, our team will contact
-                  you to confirm your participation. A registration fee is
-                  applicable, and your seat will be confirmed only upon
-                  successful payment. Lunch and refreshments will be provided
+                  you to confirm your participation.Lunch and refreshments will be provided
                   for all registered participants. (Terms & Conditions Apply)
                 </p>
               </div>

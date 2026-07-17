@@ -33,17 +33,17 @@ const speakers = [
   {
     name: "Favour Francis",
     role: "Brand Consultant & Creative Director",
-    image: "/francis.jpeg",
+    image: "/img1.jpeg",
   },
   {
     name: "Rashifa Thasneem",
     role: "Project manager at inspler ecommerce and content creator",
-    image: "/rashifa.jpeg",
+    image: "/img2.jpeg",
   },
   {
     name:"Suhail Abdulatif",
     role:"Co-founder of Ailution",
-    image:"/Kochu.jpeg"
+    image:"/img3.jpeg"
   }
 ];
 
@@ -83,7 +83,7 @@ export function LandingPage() {
         className="relative flex min-h-screen items-center justify-center overflow-hidden"
       >
         {/* Background Video */}
-        <video
+        {/* <video
           autoPlay
           muted
           loop
@@ -91,10 +91,11 @@ export function LandingPage() {
           className="absolute inset-0 h-full w-full object-cover"
         >
           <source src="/video2.mp4" type="video/mp4" />
-        </video>
+        </video> */}
+        <img src="/banner.webp" className="absolute inset-0 h-full w-full object-cover"/>
 
         {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-black/65" />
+        {/* <div className="absolute inset-0 bg-black/30" /> */}
 
         {/* Gradient Overlay */}
         {/* <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-slate-950" /> */}
@@ -112,7 +113,7 @@ export function LandingPage() {
         />
 
         {/* Cyan Glow */}
-        <div className="absolute left-1/2 top-1/2 h-175 w-175 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/20 blur-[180px]" />
+        {/* <div className="absolute left-1/2 top-1/2 h-175 w-175 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-500/20 blur-[180px]" /> */}
 
         {/* Background Text */}
         <h1 className="gilroy-heading pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18vw] font-black uppercase tracking-[0.2em] text-white/3">
@@ -309,13 +310,13 @@ export function LandingPage() {
                 />
 
                 {/* Overlay */}
-                <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/20 to-black/90" />
+                {/* <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/20 to-black/90" /> */}
 
                 {/* Glow */}
                 <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100 bg-cyan-500/10" />
 
                 {/* Name */}
-                <div className="absolute left-7 top-7">
+                {/* <div className="absolute left-7 top-7">
                   <h3 className="text-3xl font-black uppercase tracking-wide text-white">
                     {speaker.name}
                   </h3>
@@ -323,14 +324,14 @@ export function LandingPage() {
                   <p className="mt-2 text-sm  tracking-[0.2em] text-cyan-300">
                     {speaker.role}
                   </p>
-                </div>
+                </div> */}
 
                 {/* Bottom */}
-                <div className="absolute bottom-7 left-7 right-7 flex items-center justify-between">
+                {/* <div className="absolute bottom-7 left-7 right-7 flex items-center justify-between">
                   <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-white backdrop-blur-xl">
                     Guest Speaker
                   </span>
-                </div>
+                </div> */}
               </article>
             ))}
           </div>
