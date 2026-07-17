@@ -300,38 +300,17 @@ export function LandingPage() {
             {speakers.map((speaker) => (
               <article
                 key={speaker.name}
-                className="group relative h-130 overflow-hidden rounded-4xl"
+                className="overflow-hidden rounded-2xl bg-slate-950 ring-1 ring-white/10"
               >
-                {/* Image */}
                 <img
                   src={speaker.image}
-                  alt={speaker.name}
-                  className="absolute inset-0 h-full w-full object-cover transition duration-700 group-hover:scale-110"
+                  alt={`${speaker.name} - ${speaker.role}`}
+                  width={1024}
+                  height={1280}
+                  loading="lazy"
+                  decoding="async"
+                  className="block h-auto w-full max-w-none"
                 />
-
-                {/* Overlay */}
-                {/* <div className="absolute inset-0 bg-linear-to-b from-black/70 via-black/20 to-black/90" /> */}
-
-                {/* Glow */}
-                <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100 bg-cyan-500/10" />
-
-                {/* Name */}
-                {/* <div className="absolute left-7 top-7">
-                  <h3 className="text-3xl font-black uppercase tracking-wide text-white">
-                    {speaker.name}
-                  </h3>
-
-                  <p className="mt-2 text-sm  tracking-[0.2em] text-cyan-300">
-                    {speaker.role}
-                  </p>
-                </div> */}
-
-                {/* Bottom */}
-                {/* <div className="absolute bottom-7 left-7 right-7 flex items-center justify-between">
-                  <span className="rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.25em] text-white backdrop-blur-xl">
-                    Guest Speaker
-                  </span>
-                </div> */}
               </article>
             ))}
           </div>

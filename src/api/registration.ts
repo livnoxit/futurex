@@ -13,13 +13,14 @@ const FIELD_IDS = {
   age: 4,
   qualification: 5,
   phone: 6,
+  occupation: 7,
 } as const;
 
 export type RegistrationFormValues = {
   full_name: string;
   place?: string;
   email?: string;
-  occupation?:String;
+  occupation: string;
   age?: number;
   qualification?: string;
   phone: string;
@@ -48,6 +49,7 @@ const FIELD_LABELS: Record<string, string> = {
   age: "age",
   qualification: "qualification",
   phone: "phone number",
+  occupation: "occupation",
 };
 
 function formatSubmissionErrorMessage(message: string): string {
@@ -95,10 +97,13 @@ function extractApiErrorMessage(body: unknown): string | null {
   return formatSubmissionErrorMessage(message.trim());
 }
 
-function buildSubmissionPayload(values: RegistrationFormValues): SubmitFormPayload {
+function buildSubmissionPayload(
+  values: RegistrationFormValues,
+): SubmitFormPayload {
   const entries: Array<{ fieldId: number; value: string }> = [
     { fieldId: FIELD_IDS.full_name, value: values.full_name },
     { fieldId: FIELD_IDS.phone, value: values.phone },
+    { fieldId: FIELD_IDS.occupation, value: values.occupation },
   ];
 
   const place = values.place?.trim();
@@ -193,6 +198,6 @@ export async function submitRegistrationForm(
       },
     );
   } catch (error) {
-    throw new Error(getErrorMessage(error));
+    throw new Error(getErrorMessage(error), { cause: error });
   }
 }

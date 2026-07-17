@@ -31,7 +31,7 @@ const schema = z.object({
     ])
     .optional(),
 
-  occupation: z.enum(["Student", "Professional", "Non Working"], {
+  occupation: z.enum(["student", "professional", "notworking", "other"], {
     error: "Please select your occupation",
   }),
 
@@ -236,9 +236,10 @@ export function RegisterModal({
                     <option value="" disabled className="text-black">
                       Select your occupation
                     </option>
-                    <option value="Student">Student</option>
-                    <option value="Professional">Professional</option>
-                    <option value="Non Working">Non-Working</option>
+                    <option value="student">Student</option>
+                    <option value="professional">Professional</option>
+                    <option value="notworking">Not Currently Working</option>
+                    <option value="other">Other</option>
                   </select>
 
                   {errors.occupation ? (
