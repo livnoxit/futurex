@@ -18,6 +18,7 @@ import {
   submitRegistrationForm,
   type RegistrationFormValues,
 } from "../api/registration";
+import { Link } from "react-router-dom";
 
 const schema = z.object({
   full_name: z.string().trim().min(2, "Please enter your full name"),
@@ -37,13 +38,11 @@ const schema = z.object({
 
   age: z.preprocess(
     (val) =>
-      val === "" || val === undefined || val === null
-        ? undefined
-        : Number(val),
+      val === "" || val === undefined || val === null ? undefined : Number(val),
     z
       .number({ error: "Please enter a valid age" })
       .min(1, "Please enter a valid age")
-      .max(120, "Please enter a valid age")
+      .max(120, "Please enter a valid age"),
   ),
 
   qualification: z.string().trim().optional(),
@@ -249,7 +248,9 @@ export function RegisterModal({
                   ) : null}
                 </label>
                 <label className="grid gap-2 text-sm text-slate-100">
-                  <FormFieldLabel icon={Calendar} required>Age</FormFieldLabel>
+                  <FormFieldLabel icon={Calendar} required>
+                    Age
+                  </FormFieldLabel>
                   <input
                     id="age"
                     type="number"
@@ -304,8 +305,15 @@ export function RegisterModal({
                     Important:
                   </span>{" "}
                   After submitting this registration form, our team will contact
-                  you to confirm your participation.Lunch and refreshments will be provided
-                  for all registered participants. (Terms & Conditions Apply)
+                  you to confirm your participation.Lunch and refreshments will
+                  be provided for all registered participants.
+                  <br/>
+                  <Link
+                    to="/terms-and-conditions"
+                    className="font-semibold text-cyan-300 underline underline-offset-4 hover:text-cyan-200 transition-colors"
+                  >
+                    (Terms & Conditions Apply)
+                  </Link>
                 </p>
               </div>
 

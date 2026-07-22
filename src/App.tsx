@@ -1,12 +1,17 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { LandingPage } from "./pages/LandingPage";
 import { Toaster } from "sonner";
+import Terms from "./pages/Terms";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
+
       <Routes>
         <Route path="/" element={<LandingPage />} />
+        <Route path="/terms-and-conditions" element={<Terms />} />
       </Routes>
       <Toaster
         position="top-center"
